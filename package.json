@@ -1,0 +1,36 @@
+{
+  "name": "devops-academy",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@12.8.1",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c cyan,magenta \"pnpm dev:api\" \"pnpm dev:web\"",
+    "dev:api": "dotenv -e .env -- pnpm --filter @devops-academy/api dev",
+    "dev:web": "pnpm --filter @devops-academy/web dev",
+    "db:up": "dotenv -e .env -- docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:generate": "dotenv -e .env -- pnpm --filter @devops-academy/database generate",
+    "db:migrate": "dotenv -e .env -- pnpm --filter @devops-academy/database migrate",
+    "db:seed": "dotenv -e .env -- pnpm --filter @devops-academy/database seed",
+    "db:reset": "docker compose down -v && pnpm db:up && pnpm db:migrate && pnpm db:seed",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "pnpm -r --if-present lint",
+    "test": "pnpm --filter @devops-academy/shared test && pnpm --filter @devops-academy/api test && pnpm --filter @devops-academy/web test",
+    "build": "pnpm typecheck && pnpm --filter @devops-academy/web build",
+    "start": "concurrently -k -n api,web -c cyan,magenta \"dotenv -e .env -- pnpm --filter @devops-academy/api start\" \"pnpm --filter @devops-academy/web start\""
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.3.7",
+    "@eslint/js": "10.0.1",
+    "@types/node": "26.6.10",
+    "concurrently": "10.0.7",
+    "dotenv-cli": "11.1.0",
+    "eslint": "9.39.5",
+    "globals": "17.14.0",
+    "typescript": "5.9.3",
+    "vitest": "5.1.2"
+  }
+}

@@ -1,0 +1,13 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - "@types/node@26.6.10"
+  - "@types/react@19.3.2"
+  - "@vitest/mocker@5.1.2"
+  - "@vitest/spy@5.1.2"
+  - hono@4.13.22
+  - lucide-react@1.80.0
+  - vitest@5.1.2
